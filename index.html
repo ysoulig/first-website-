@@ -3,42 +3,305 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Website</title>
+  <title>my manga profile</title>
   <style>
+    /* --- BACKGROUND & RETRO MANGA THEME --- */
     body {
-      background-color: #121212;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Courier New", Courier, monospace;
+      /* Subtle manga graph-paper grid background */
+      background-color: #e6e6e6;
+      background-image: 
+        linear-gradient(#cccccc 1px, transparent 1px),
+        linear-gradient(90deg, #cccccc 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #111111;
+    }
+
+    /* --- FAKE BROWSER WINDOW --- */
+    .browser-window {
+      width: 100%;
+      max-width: 680px;
+      background: #ffffff;
+      border: 3px solid #111111;
+      box-shadow: 8px 8px 0px #111111;
+    }
+
+    /* Top Title Bar */
+    .title-bar {
+      background: #111111;
+      color: #ffffff;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .window-controls span {
+      display: inline-block;
+      background: #ffffff;
+      color: #111111;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      line-height: 18px;
+      margin-left: 4px;
+      font-size: 12px;
+    }
+
+    /* Browser Tabs Bar */
+    .tabs-bar {
+      display: flex;
+      background: #dcdcdc;
+      border-bottom: 2px solid #111111;
+      padding: 6px 8px 0 8px;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      background: #bdbdbd;
+      border: 2px solid #111111;
+      border-bottom: none;
+      padding: 6px 14px;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      position: relative;
+      top: 2px;
+      padding-bottom: 8px;
+    }
+
+    /* Fake URL Address Bar */
+    .address-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f5f5f5;
+      border-bottom: 2px solid #111111;
+      font-size: 13px;
+    }
+
+    .url-box {
+      flex: 1;
+      background: #ffffff;
+      border: 2px solid #111111;
+      padding: 4px 10px;
+    }
+
+    /* --- MANGA PANEL CONTENT AREA --- */
+    .content-area {
+      padding: 16px;
+    }
+
+    .tab-page {
+      display: none;
+    }
+
+    .tab-page.active {
+      display: block;
+    }
+
+    .manga-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .panel {
+      border: 2px solid #111111;
+      padding: 12px;
+      background: #ffffff;
+    }
+
+    .panel-header {
+      background: #111111;
+      color: #ffffff;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      margin: -12px -12px 10px -12px;
+    }
+
+    .pfp-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #eeeeee;
+      border: 2px solid #111111;
+      display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    .link-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
     }
-    button {
-      background-color: #7c4dff;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+
+    .link-list li {
+      border-bottom: 1px dashed #111111;
+      padding: 5px 0;
+      font-size: 13px;
     }
-    button:hover {
-      background-color: #651fff;
+
+    .link-list a {
+      color: #111111;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .link-list a:hover {
+      background: #111111;
+      color: #ffffff;
+      padding: 0 4px;
+    }
+
+    .music-bar {
+      border: 2px solid #111111;
+      background: #f5f5f5;
+      padding: 8px 12px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Footer */
+    .window-footer {
+      border-top: 2px solid #111111;
+      background: #f5f5f5;
+      padding: 6px 12px;
+      font-size: 11px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h1>Welcome to My Site!</h1>
-  <p id="message">Click the button below to test JavaScript.</p>
-  <button onclick="changeText()">Click Me</button>
+  <div class="browser-window">
+    <!-- Top Bar -->
+    <div class="title-bar">
+      <span>★ profile.exe</span>
+      <div class="window-controls">
+        <span>_</span><span>□</span><span>×</span>
+      </div>
+    </div>
 
+    <!-- Clickable Tabs -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="openTab('home', 'https://my-profile.manga/home', this)">all about me</button>
+      <button class="tab-btn" onclick="openTab('likes', 'https://my-profile.manga/likes', this)">likes & faves</button>
+      <button class="tab-btn" onclick="openTab('links', 'https://my-profile.manga/projects', this)">projects</button>
+    </div>
+
+    <!-- Fake URL Bar -->
+    <div class="address-bar">
+      <span>← → ↻</span>
+      <div class="url-box" id="url-text">https://my-profile.manga/home</div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content-area">
+
+      <!-- TAB 1: HOME / ABOUT ME -->
+      <div id="home" class="tab-page active">
+        <div class="manga-grid">
+          <!-- Left Column -->
+          <div class="panel">
+            <div class="panel-header">find me here! (´▽`)</div>
+            <div class="pfp-box">[your icon here]</div>
+            <ul class="link-list">
+              <li>1. <a href="#">discord</a></li>
+              <li>2. <a href="#">github</a></li>
+              <li>3. <a href="#">pinterest</a></li>
+              <li>4. <a href="#">spotify</a></li>
+            </ul>
+          </div>
+
+          <!-- Right Column -->
+          <div class="panel">
+            <div class="panel-header">my profile !</div>
+            <p><strong>name:</strong> your name here</p>
+            <p><strong>pronouns:</strong> they/them (edit me!)</p>
+            <p><strong>status:</strong> learning web dev & game design ★</p>
+            <hr style="border: 1px dashed #111;">
+            <p>write a little bio here! talk about your art, coding, favorite characters, or whatever vibe you want on your page.</p>
+            <p><strong>mood:</strong> creative (≧▽≦)/</p>
+          </div>
+        </div>
+
+        <!-- Mini Music Bar -->
+        <div class="music-bar">
+          <span>▶ now playing: your favorite song — artist</span>
+          <span>01:25 ━━━━━━●─── 03:18</span>
+        </div>
+      </div>
+
+      <!-- TAB 2: LIKES -->
+      <div id="likes" class="tab-page">
+        <div class="panel">
+          <div class="panel-header">stuff i like ★</div>
+          <p><strong>music:</strong> add your favorite groups & artists here</p>
+          <p><strong>anime / manga:</strong> add your favorites here</p>
+          <p><strong>games:</strong> add games you play or want to make</p>
+          <p><strong>aesthetics:</strong> old manga, retro web, dark gothic, etc.</p>
+        </div>
+      </div>
+
+      <!-- TAB 3: PROJECTS -->
+      <div id="links" class="tab-page">
+        <div class="panel">
+          <div class="panel-header">my cool stuff & WIPs</div>
+          <p>★ <strong>this website!</strong> built from scratch with html, css & js.</p>
+          <p>★ <strong>art / oc archive:</strong> coming soon...</p>
+          <p>★ <strong>mini game project:</strong> coming soon...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="window-footer">
+      coded from scratch ★ edit everything in index.html
+    </div>
+  </div>
+
+  <!-- JavaScript that makes the top tabs switch pages -->
   <script>
-    function changeText() {
-      document.getElementById("message").innerText = "It works! You just ran JavaScript!";
+    function openTab(tabId, fakeUrl, clickedButton) {
+      // Hide all pages
+      let pages = document.querySelectorAll('.tab-page');
+      pages.forEach(page => page.classList.remove('active'));
+
+      // Un-highlight all tab buttons
+      let buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Show the selected page & highlight the clicked tab
+      document.getElementById(tabId).classList.add('active');
+      clickedButton.classList.add('active');
+
+      // Update the fake URL bar text!
+      document.getElementById('url-text').innerText = fakeUrl;
     }
   </script>
 
