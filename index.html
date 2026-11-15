@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>my manga profile</title>
+  <title>cafe profile</title>
+  <!-- Cute Pixel & Rounded Fonts from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  
   <style>
-    /* --- BACKGROUND & RETRO MANGA THEME --- */
+    /* --- PASTEL CAFE THEME & PALETTE --- */
+    :root {
+      --matcha: #ABBF9B;
+      --milk: #E6E2D7;
+      --cream: #E4CDB0;
+      --caramel: #A2663C;
+      --coffee: #3F1D0E;
+      --walnut: #7B5E4A;
+      --ivory: #FAF7F0;
+    }
+
     body {
       margin: 0;
       padding: 20px;
@@ -13,295 +26,329 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: "Courier New", Courier, monospace;
-      /* Subtle manga graph-paper grid background */
-      background-color: #e6e6e6;
+      font-family: 'Quicksand', sans-serif;
+      /* Soft pastel checkered/grid background */
+      background-color: var(--milk);
       background-image: 
-        linear-gradient(#cccccc 1px, transparent 1px),
-        linear-gradient(90deg, #cccccc 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: #111111;
+        linear-gradient(45deg, var(--cream) 25%, transparent 25%), 
+        linear-gradient(-45deg, var(--cream) 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, var(--cream) 75%), 
+        linear-gradient(-45deg, transparent 75%, var(--cream) 75%);
+      background-size: 40px 40px;
+      background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
     }
 
-    /* --- FAKE BROWSER WINDOW --- */
-    .browser-window {
+    /* --- WIDE HORIZONTAL "SQUIRCLE" WINDOW --- */
+    .cafe-container {
       width: 100%;
-      max-width: 680px;
-      background: #ffffff;
-      border: 3px solid #111111;
-      box-shadow: 8px 8px 0px #111111;
+      max-width: 820px;
+      background: var(--ivory);
+      border: 4px solid var(--walnut);
+      border-radius: 24px;
+      box-shadow: 6px 6px 0px var(--caramel);
+      overflow: hidden;
     }
 
-    /* Top Title Bar */
-    .title-bar {
-      background: #111111;
-      color: #ffffff;
-      padding: 6px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .window-controls span {
-      display: inline-block;
-      background: #ffffff;
-      color: #111111;
-      width: 18px;
-      height: 18px;
+    /* Top Cute Awning Header */
+    .cafe-header {
+      background: var(--matcha);
+      border-bottom: 3px dashed var(--walnut);
+      padding: 16px 20px;
       text-align: center;
-      line-height: 18px;
-      margin-left: 4px;
-      font-size: 12px;
+      color: var(--coffee);
     }
 
-    /* Browser Tabs Bar */
-    .tabs-bar {
-      display: flex;
-      background: #dcdcdc;
-      border-bottom: 2px solid #111111;
-      padding: 6px 8px 0 8px;
-      gap: 6px;
+    .cafe-header h1 {
+      margin: 0;
+      font-family: 'Pixelify Sans', sans-serif;
+      font-size: 28px;
+      letter-spacing: 1px;
     }
 
-    .tab-btn {
-      background: #bdbdbd;
-      border: 2px solid #111111;
-      border-bottom: none;
-      padding: 6px 14px;
-      font-family: inherit;
+    .cafe-header p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
       font-weight: bold;
-      font-size: 13px;
-      cursor: pointer;
-      border-radius: 6px 6px 0 0;
     }
 
-    .tab-btn.active {
-      background: #ffffff;
-      position: relative;
-      top: 2px;
-      padding-bottom: 8px;
-    }
-
-    /* Fake URL Address Bar */
-    .address-bar {
+    /* --- SEPARATED PILL TABS BAR --- */
+    .tabs-row {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: #f5f5f5;
-      border-bottom: 2px solid #111111;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: var(--milk);
+      border-bottom: 3px solid var(--walnut);
+    }
+
+    .tab-pill {
+      background: var(--ivory);
+      border: 2px dashed var(--walnut);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
       font-size: 13px;
+      color: var(--walnut);
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .url-box {
-      flex: 1;
-      background: #ffffff;
-      border: 2px solid #111111;
-      padding: 4px 10px;
+    .tab-pill:hover {
+      background: var(--cream);
+      transform: translateY(-2px);
     }
 
-    /* --- MANGA PANEL CONTENT AREA --- */
-    .content-area {
-      padding: 16px;
+    .tab-pill.active {
+      background: var(--matcha);
+      border-style: solid;
+      color: var(--coffee);
+      box-shadow: 0 3px 0px var(--walnut);
     }
 
-    .tab-page {
+    /* --- CONTENT AREA --- */
+    .content-body {
+      padding: 24px;
+      background: var(--ivory);
+    }
+
+    .page-section {
       display: none;
     }
 
-    .tab-page.active {
+    .page-section.active {
       display: block;
     }
 
-    .manga-grid {
+    /* Grid Layout for Home */
+    .home-grid {
       display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 14px;
-      margin-bottom: 14px;
+      grid-template-columns: 260px 1fr;
+      gap: 20px;
     }
 
-    .panel {
-      border: 2px solid #111111;
-      padding: 12px;
+    /* Panel Boxes */
+    .cafe-panel {
       background: #ffffff;
+      border: 3px solid var(--walnut);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 3px 3px 0px var(--cream);
     }
 
-    .panel-header {
-      background: #111111;
-      color: #ffffff;
-      padding: 3px 8px;
-      font-size: 12px;
+    .panel-title {
+      font-family: 'Pixelify Sans', sans-serif;
+      font-size: 18px;
+      color: var(--coffee);
+      background: var(--matcha);
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 2px solid var(--walnut);
+      margin: -16px -16px 14px -16px;
+      text-align: center;
+    }
+
+    /* Status Pills */
+    .status-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+      font-size: 13px;
       font-weight: bold;
-      margin: -12px -12px 10px -12px;
+      color: var(--coffee);
     }
 
-    .pfp-box {
-      width: 100%;
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      background: var(--milk);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--walnut);
+    }
+
+    .status-open { color: #2e7d32; }
+    .status-closed { color: #c62828; }
+
+    /* Image Grid (3-4 cafe slots) */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cafe-img-slot {
       aspect-ratio: 1 / 1;
-      background: #eeeeee;
-      border: 2px solid #111111;
+      background: var(--milk);
+      border: 2px dashed var(--walnut);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       text-align: center;
-      margin-bottom: 10px;
-      box-sizing: border-box;
+      color: var(--walnut);
+      padding: 4px;
     }
 
-    .link-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .link-list li {
-      border-bottom: 1px dashed #111111;
-      padding: 5px 0;
-      font-size: 13px;
-    }
-
-    .link-list a {
-      color: #111111;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .link-list a:hover {
-      background: #111111;
-      color: #ffffff;
-      padding: 0 4px;
-    }
-
-    .music-bar {
-      border: 2px solid #111111;
-      background: #f5f5f5;
-      padding: 8px 12px;
-      font-size: 12px;
+    /* Social Links Row */
+    .social-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .social-btn {
+      background: var(--cream);
+      border: 2px solid var(--walnut);
+      padding: 8px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--coffee);
+      font-weight: bold;
+      font-size: 12px;
+      transition: 0.1s;
+    }
+
+    .social-btn:hover {
+      background: var(--matcha);
+      transform: scale(1.05);
     }
 
     /* Footer */
-    .window-footer {
-      border-top: 2px solid #111111;
-      background: #f5f5f5;
-      padding: 6px 12px;
-      font-size: 11px;
+    .cafe-footer {
+      background: var(--matcha);
+      border-top: 3px dashed var(--walnut);
+      padding: 10px;
       text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--coffee);
     }
   </style>
 </head>
 <body>
 
-  <div class="browser-window">
-    <!-- Top Bar -->
-    <div class="title-bar">
-      <span>★ profile.exe</span>
-      <div class="window-controls">
-        <span>_</span><span>□</span><span>×</span>
-      </div>
+  <div class="cafe-container">
+    
+    <!-- Top Awning Header -->
+    <div class="cafe-header">
+      <h1>☕ welcome to my cafe!</h1>
+      <p>soft web designs, art & code ♪(^∇^*)</p>
     </div>
 
-    <!-- Clickable Tabs -->
-    <div class="tabs-bar">
-      <button class="tab-btn active" onclick="openTab('home', 'https://my-profile.manga/home', this)">all about me</button>
-      <button class="tab-btn" onclick="openTab('likes', 'https://my-profile.manga/likes', this)">likes & faves</button>
-      <button class="tab-btn" onclick="openTab('links', 'https://my-profile.manga/projects', this)">projects</button>
+    <!-- Separated Pill Navigation Bar -->
+    <div class="tabs-row">
+      <button class="tab-pill active" onclick="switchTab('home', this)">home + about</button>
+      <button class="tab-pill" onclick="switchTab('likes', this)">likes, dislikes & dni</button>
+      <button class="tab-pill" onclick="switchTab('gallery', this)">gallery</button>
+      <button class="tab-pill" onclick="switchTab('pricing', this)">pricing + tos</button>
     </div>
 
-    <!-- Fake URL Bar -->
-    <div class="address-bar">
-      <span>← → ↻</span>
-      <div class="url-box" id="url-text">https://my-profile.manga/home</div>
-    </div>
+    <!-- Main Content Body -->
+    <div class="content-body">
 
-    <!-- Page Content -->
-    <div class="content-area">
-
-      <!-- TAB 1: HOME / ABOUT ME -->
-      <div id="home" class="tab-page active">
-        <div class="manga-grid">
-          <!-- Left Column -->
-          <div class="panel">
-            <div class="panel-header">find me here! (´▽`)</div>
-            <div class="pfp-box">[your icon here]</div>
-            <ul class="link-list">
-              <li>1. <a href="#">discord</a></li>
-              <li>2. <a href="#">github</a></li>
-              <li>3. <a href="#">pinterest</a></li>
-              <li>4. <a href="#">spotify</a></li>
-            </ul>
+      <!-- TAB 1: HOME + ABOUT -->
+      <div id="home" class="page-section active">
+        <div class="home-grid">
+          
+          <!-- Left Column: Status & Quick Info -->
+          <div>
+            <div class="cafe-panel">
+              <div class="panel-title">status</div>
+              <div class="status-box">
+                <div class="status-row"><span>comms:</span> <span class="status-open">OPEN</span></div>
+                <div class="status-row"><span>trades:</span> <span class="status-closed">CLOSED</span></div>
+                <div class="status-row"><span>requests:</span> <span class="status-open">OPEN</span></div>
+              </div>
+              <p style="font-size: 12px; text-align: center; color: var(--walnut); margin: 0;">
+                DM on Instagram or Discord for inquiries!
+              </p>
+            </div>
           </div>
 
-          <!-- Right Column -->
-          <div class="panel">
-            <div class="panel-header">my profile !</div>
-            <p><strong>name:</strong> your name here</p>
-            <p><strong>pronouns:</strong> they/them (edit me!)</p>
-            <p><strong>status:</strong> learning web dev & game design ★</p>
-            <hr style="border: 1px dashed #111;">
-            <p>write a little bio here! talk about your art, coding, favorite characters, or whatever vibe you want on your page.</p>
-            <p><strong>mood:</strong> creative (≧▽≦)/</p>
+          <!-- Right Column: Bio & Image Grid -->
+          <div class="cafe-panel">
+            <div class="panel-title">about me ♪</div>
+            <p style="margin-top: 0; font-size: 14px; line-height: 1.5;">
+              Hi! I'm AJ. I like digital character design, coding small websites, learning game development, and cozy aesthetics. Take a look around!
+            </p>
+            
+            <div class="panel-title" style="margin-top: 16px;">cafe gallery slots</div>
+            <div class="image-grid">
+              <div class="cafe-img-slot">[image 1]</div>
+              <div class="cafe-img-slot">[image 2]</div>
+              <div class="cafe-img-slot">[image 3]</div>
+              <div class="cafe-img-slot">[image 4]</div>
+            </div>
           </div>
+
         </div>
 
-        <!-- Mini Music Bar -->
-        <div class="music-bar">
-          <span>▶ now playing: your favorite song — artist</span>
-          <span>01:25 ━━━━━━●─── 03:18</span>
-        </div>
-      </div>
-
-      <!-- TAB 2: LIKES -->
-      <div id="likes" class="tab-page">
-        <div class="panel">
-          <div class="panel-header">stuff i like ★</div>
-          <p><strong>music:</strong> add your favorite groups & artists here</p>
-          <p><strong>anime / manga:</strong> add your favorites here</p>
-          <p><strong>games:</strong> add games you play or want to make</p>
-          <p><strong>aesthetics:</strong> old manga, retro web, dark gothic, etc.</p>
+        <!-- Social Buttons Bar -->
+        <div class="social-row">
+          <a href="#" class="social-btn">instagram ↗</a>
+          <a href="#" class="social-btn">github ↗</a>
+          <a href="#" class="social-btn">spotify ↗</a>
+          <a href="#" class="social-btn">pinterest ↗</a>
         </div>
       </div>
 
-      <!-- TAB 3: PROJECTS -->
-      <div id="links" class="tab-page">
-        <div class="panel">
-          <div class="panel-header">my cool stuff & WIPs</div>
-          <p>★ <strong>this website!</strong> built from scratch with html, css & js.</p>
-          <p>★ <strong>art / oc archive:</strong> coming soon...</p>
-          <p>★ <strong>mini game project:</strong> coming soon...</p>
+      <!-- TAB 2: LIKES, DISLIKES & DNI -->
+      <div id="likes" class="page-section">
+        <div class="cafe-panel">
+          <div class="panel-title">likes & dislikes ★</div>
+          <p><strong>likes:</strong> matcha lattes, coding, character design, retro aesthetics.</p>
+          <p><strong>dislikes:</strong> paywalls, bugs that take 3 hours to fix.</p>
+          <hr style="border: 1px dashed var(--walnut); margin: 16px 0;">
+          <div class="panel-title" style="background: var(--cream);">D.N.I (do not interact)</div>
+          <p style="font-size: 13px; margin-bottom: 0;">Basic DNI criteria (homophobic, racist, ableist, or generally disrespectful people).</p>
+        </div>
+      </div>
+
+      <!-- TAB 3: GALLERY -->
+      <div id="gallery" class="page-section">
+        <div class="cafe-panel">
+          <div class="panel-title">art & website gallery</div>
+          <p style="text-align: center; color: var(--walnut);">Put your art pieces, character reference sheets, or website examples here!</p>
+        </div>
+      </div>
+
+      <!-- TAB 4: PRICING + TOS -->
+      <div id="pricing" class="page-section">
+        <div class="cafe-panel">
+          <div class="panel-title">pricing, tos & faq</div>
+          <p><strong>website commissions:</strong> info coming soon...</p>
+          <p><strong>terms of service (TOS):</strong> basic rules for commissioning custom layouts.</p>
+          <p><strong>FAQ:</strong> answers to common questions go here!</p>
         </div>
       </div>
 
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="window-footer">
-      coded from scratch ★ edit everything in index.html
+    <!-- Footer -->
+    <div class="cafe-footer">
+      website designed & created by AJ ★ brewed with html & css
     </div>
+
   </div>
 
-  <!-- JavaScript that makes the top tabs switch pages -->
+  <!-- JavaScript for Tab Switching -->
   <script>
-    function openTab(tabId, fakeUrl, clickedButton) {
-      // Hide all pages
-      let pages = document.querySelectorAll('.tab-page');
-      pages.forEach(page => page.classList.remove('active'));
+    function switchTab(tabId, clickedPill) {
+      // Hide all sections
+      let sections = document.querySelectorAll('.page-section');
+      sections.forEach(sec => sec.classList.remove('active'));
 
-      // Un-highlight all tab buttons
-      let buttons = document.querySelectorAll('.tab-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
+      // Remove active class from all pills
+      let pills = document.querySelectorAll('.tab-pill');
+      pills.forEach(pill => pill.classList.remove('active'));
 
-      // Show the selected page & highlight the clicked tab
+      // Show chosen section & highlight clicked pill
       document.getElementById(tabId).classList.add('active');
-      clickedButton.classList.add('active');
-
-      // Update the fake URL bar text!
-      document.getElementById('url-text').innerText = fakeUrl;
+      clickedPill.classList.add('active');
     }
   </script>
 
