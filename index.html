@@ -70,7 +70,6 @@
     .cafe-card {
       width: 100%;
       background-color: var(--milk-light);
-      /* Subtle pastel gingham pattern */
       background-image:
         linear-gradient(90deg, rgba(228, 205, 176, 0.28) 50%, transparent 50%),
         linear-gradient(rgba(228, 205, 176, 0.28) 50%, transparent 50%);
@@ -289,7 +288,7 @@
     /* ================= PAGE 2: LIKES / DISLIKES ================= */
     .page-header {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .page-header h2 {
@@ -353,12 +352,37 @@
       line-height: 1.35;
     }
 
-    /* ================= PAGE 3: PORTFOLIO / GALLERY ================= */
+    /* ================= PAGE 3: PORTFOLIO (WEBSITES + ART) ================= */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .cat-tab {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      background: var(--milk);
+      color: var(--walnut);
+      border: 2.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 4px 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 0 var(--walnut);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .cat-tab.active {
+      background: var(--matcha);
+      transform: translateY(-1px);
+    }
+
     .brief-desc {
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       background: var(--milk);
       border: 2px dashed var(--walnut);
       border-radius: 14px;
@@ -415,6 +439,12 @@
       cursor: pointer;
       box-shadow: 0 3px 0 rgba(123, 94, 74, 0.25);
       transition: transform 0.15s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .art-slot:hover {
@@ -426,6 +456,25 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .slot-placeholder {
+      padding: 8px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.78rem;
+      color: var(--walnut);
+    }
+
+    .slot-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(243, 240, 232, 0.92);
+      border-top: 2px solid var(--walnut);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.7rem;
+      padding: 3px 4px;
     }
 
     .carousel-dots {
@@ -454,9 +503,9 @@
 
     .tos-list {
       padding-left: 14px;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 700;
-      line-height: 1.38;
+      line-height: 1.36;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -464,7 +513,7 @@
 
     .price-list {
       list-style: none;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 800;
       display: flex;
       flex-direction: column;
@@ -474,17 +523,20 @@
     .price-list li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       border-bottom: 1.5px dotted rgba(123, 94, 74, 0.45);
       padding-bottom: 2px;
+      gap: 4px;
     }
 
     .price-tag {
       font-family: 'Silkscreen', monospace;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       background: var(--matcha);
-      padding: 0 5px;
+      padding: 1px 5px;
       border-radius: 6px;
       border: 1px solid var(--walnut);
+      flex-shrink: 0;
     }
 
     .faq-box h3 {
@@ -494,10 +546,10 @@
     }
 
     .faq-item {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 700;
       line-height: 1.35;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     /* ================= BOOKLET FLIP ARROWS ================= */
@@ -581,7 +633,7 @@
       fill: currentColor;
     }
 
-    /* Fullscreen Lightbox for Gallery Art */
+    /* Fullscreen Lightbox */
     .lightbox {
       display: none;
       position: fixed;
@@ -601,18 +653,26 @@
       background: var(--milk-light);
       border: 4px solid var(--walnut);
       border-radius: 24px;
-      padding: 10px;
+      padding: 12px;
       max-width: 90vw;
       max-height: 85vh;
       position: relative;
       box-shadow: 0 8px 0 var(--walnut);
+      text-align: center;
     }
 
     .lightbox-inner img {
       max-width: 100%;
-      max-height: 75vh;
+      max-height: 70vh;
       border-radius: 16px;
       display: block;
+      margin: 0 auto;
+    }
+
+    .lightbox-caption {
+      margin-top: 8px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
     }
 
     .close-lightbox {
@@ -653,7 +713,6 @@
   <div class="card-wrapper">
     <!-- TOP BANNER (Visible on Home Page) -->
     <div class="top-banner" id="topBanner">
-      <!-- BANNER IMAGE -->
       <img src="Untitled142_20261115191229.png" alt="Welcome to my cafe banner" />
     </div>
 
@@ -663,47 +722,42 @@
       <!-- ==================== PAGE 1: HOME ==================== -->
       <section class="page active" id="page-1">
         <div class="home-top-row">
-          <!-- HOME PROFILE ICON (extra image 1) -->
           <div class="photo-frame home-pfp">
-            <img src="0e486133d13fe9c7cfacf444e4cfcec5.jpg" alt="Profile sticker" />
+            <img src="0e486133d13fe9c7cfacf444e4cfcec5.jpg" alt="Profile icon" />
           </div>
 
-          <!-- INFO BOX -->
           <div class="stitched-box info-box">
             <h2><span>🍵</span> Welcome in!</h2>
             <p>
-              Hey, I'm AJ! | Digital artist | character designer &amp; coder | studying law &amp; additional focusing on programming!
+              Hi, I'm Soul / AJ! Custom website coder, UI designer &amp; digital artist. Grab a matcha and check out my custom site commissions &amp; portfolio!
             </p>
           </div>
         </div>
 
-        <!-- LISTENING TO MUSIC BAR -->
         <div class="music-bar">
           <span class="music-note">♪</span>
           <span class="music-text">Listening to: <strong>TOOL — Forty Six &amp; 2</strong></span>
         </div>
 
-        <!-- BOTTOM ROW: STATUS + BUTTONS ON LEFT, TALL PHOTO ON RIGHT -->
         <div class="home-bottom-row">
           <div class="status-col">
             <div class="stitched-box">
               <ul class="status-list">
-                <li><span>Commissions</span> <span class="status-badge">OPEN</span></li>
+                <li><span>Websites</span> <span class="status-badge">OPEN</span></li>
+                <li><span>Custom Assets</span> <span class="status-badge">OPEN</span></li>
                 <li><span>Requests</span> <span class="status-badge closed">CLOSED</span></li>
-                <li><span>Art Trades</span> <span class="status-badge">ASK</span></li>
               </ul>
             </div>
 
             <div class="nav-pills">
-              <button class="pill-btn" onclick="goToPage(3)">Gallery</button>
+              <button class="pill-btn" onclick="goToPage(3)">Portfolio</button>
               <button class="pill-btn" onclick="goToPage(2)">More!</button>
               <button class="pill-btn" onclick="goToPage(4)">Pricing / TOS</button>
             </div>
           </div>
 
-          <!-- HOME TALL PHOTO (extra image 2) -->
           <div class="photo-frame home-tall-photo">
-            <img src="54d776d791b4782184a612779765584a.jpg" alt="Featured character art" />
+            <img src="54d776d791b4782184a612779765584a.jpg" alt="Featured design" />
           </div>
         </div>
       </section>
@@ -714,9 +768,7 @@
           <h2>Cafe Menu: Likes &amp; DNI</h2>
         </div>
 
-        <!-- LIKES ROW -->
         <div class="ld-row">
-          <!-- LIKES ICON (extra image 3) -->
           <div class="photo-frame ld-photo">
             <img src="dd52ac67c092b97e6b6921f52d83e676.jpg" alt="Likes icon" />
           </div>
@@ -726,14 +778,12 @@
               <span class="badge-mark">✓</span>
             </div>
             <p>
-              Photography, architecture + character designs, subcultures, Visual Kei &amp; Music, Resident Evil , outlast, occasional baking.
+              Matcha lattes, custom HTML/CSS web design, original character lore, Visual Kei &amp; gothic aesthetics, K-pop photocards, and cozy cafe themes.
             </p>
           </div>
         </div>
 
-        <!-- DISLIKES / DNI ROW -->
         <div class="ld-row">
-          <!-- DISLIKES ICON (extra image 4) -->
           <div class="photo-frame ld-photo">
             <img src="e1b9859107973a08d524f816fc076db3.jpg" alt="Dislikes icon" />
           </div>
@@ -743,40 +793,41 @@
               <span class="badge-mark x-mark">✕</span>
             </div>
             <p>
-              Art theft, tracing, AI scraping, rude customers, clutter, and basic DNI criteria. Please be respectful when ordering!
+              Stealing or reselling my code templates, tracing, AI scraping, rude clients, and basic DNI criteria. Please be respectful when ordering!
             </p>
           </div>
         </div>
 
-        <!-- FLIPBOOK ARROWS -->
         <div class="booklet-nav">
           <button class="flip-btn" onclick="goToPage(1)">← Home</button>
           <button class="home-pill-small" onclick="goToPage(1)">Page 2 / 4</button>
-          <button class="flip-btn" onclick="goToPage(3)">Gallery →</button>
+          <button class="flip-btn" onclick="goToPage(3)">Portfolio →</button>
         </div>
       </section>
 
-      <!-- ==================== PAGE 3: PORTFOLIO / GALLERY ==================== -->
+      <!-- ==================== PAGE 3: PORTFOLIO (WEBSITES & ART) ==================== -->
       <section class="page" id="page-3">
         <div class="page-header">
-          <h2>Portfolio &amp; Sketchbook</h2>
+          <h2>Portfolio &amp; Examples</h2>
         </div>
 
-        <div class="brief-desc">
-          Click the arrows to flip through my artwork, or tap any piece to view it full-size!
+        <!-- 2 CATEGORY TABS: WEBSITES vs ART -->
+        <div class="category-tabs">
+          <button class="cat-tab active" id="tab-websites" onclick="switchCategory('websites')">Websites</button>
+          <button class="cat-tab" id="tab-art" onclick="switchCategory('art')">Art</button>
         </div>
 
-        <!-- CAROUSEL WITH WORKING ARROWS -->
+        <div class="brief-desc" id="portfolioDesc">
+          Custom coded HTML/CSS websites! Use the arrows to browse examples or tap to preview.
+        </div>
+
         <div class="carousel-wrapper">
-          <button class="carousel-arrow" onclick="shiftGallery(-1)" aria-label="Previous art">←</button>
-          <div class="carousel-track" id="galleryTrack">
-            <!-- Populated automatically by JavaScript -->
-          </div>
-          <button class="carousel-arrow" onclick="shiftGallery(1)" aria-label="Next art">→</button>
+          <button class="carousel-arrow" onclick="shiftGallery(-1)" aria-label="Previous">←</button>
+          <div class="carousel-track" id="galleryTrack"></div>
+          <button class="carousel-arrow" onclick="shiftGallery(1)" aria-label="Next">→</button>
         </div>
-        <div class="carousel-dots" id="galleryIndicator">Showing 1–3 of 6</div>
+        <div class="carousel-dots" id="galleryIndicator"></div>
 
-        <!-- FLIPBOOK ARROWS -->
         <div class="booklet-nav">
           <button class="flip-btn" onclick="goToPage(2)">← More!</button>
           <button class="home-pill-small" onclick="goToPage(1)">Home</button>
@@ -791,39 +842,38 @@
         </div>
 
         <div class="split-menu">
-          <!-- LEFT: TOS -->
+          <!-- LEFT: WEBSITE TOS -->
           <div class="stitched-box menu-col">
             <h3>Terms of Service</h3>
             <ul class="tos-list">
-              <li>50% upfront after sketch approval.</li>
-              <li>Personal use only unless discussed.</li>
-              <li>Clear visual references required.</li>
-              <li>No refunds once coloring begins.</li>
+              <li>50% upfront after wireframe/layout approval.</li>
+              <li>Provide all bio text, links &amp; icons upfront.</li>
+              <li>2 free minor tweaks; big redesigns cost extra.</li>
+              <li>Keep my small credit in code/footer; no reselling.</li>
             </ul>
           </div>
 
-          <!-- RIGHT: PRICING -->
+          <!-- RIGHT: WEBSITE PRICING -->
           <div class="stitched-box menu-col">
-            <h3>Cafe Menu Prices</h3>
+            <h3>Website Menu</h3>
             <ul class="price-list">
-              <li><span>Aahhhhh</span> <span class="price-tag">$tbd</span></li>
-              <li><span>Buhhhh</span> <span class="price-tag">$tbd</span></li>
-              <li><span>Ahhhh</span> <span class="price-tag">$tbd</span></li>
-              <li><span>Meow</span> <span class="price-tag">$tbd</span></li>
+              <li><span>Single-Page Card</span> <span class="price-tag">$12</span></li>
+              <li><span>Multi-Page Booklet</span> <span class="price-tag">$25</span></li>
+              <li><span>Interactive Add-Ons</span> <span class="price-tag">+$5</span></li>
+              <li><span>Custom Banner/Art</span> <span class="price-tag">+$8</span></li>
             </ul>
           </div>
         </div>
 
-        <!-- BOTTOM: FAQ -->
+        <!-- BOTTOM: WEBSITE FAQ -->
         <div class="stitched-box faq-box">
-          <h3>Quick FAQ</h3>
-          <div class="faq-item"><strong>Q: How long do commissions take?</strong> A: Usually about a week days depending on queue &amp; detail!</div>
-          <div class="faq-item"><strong>Q: Where do I order?</strong> A: DM me on Instagram or message me via my socials below.</div>
+          <h3>Website Commission FAQ</h3>
+          <div class="faq-item"><strong>Q: How do I get my finished website?</strong> A: Your choice! I can send you the <strong>.zip code files</strong> (with an easy setup guide for GitHub/Neocities) OR <strong>host it for you on GitHub</strong> with a live link.</div>
+          <div class="faq-item"><strong>Q: Are there any monthly fees?</strong> A: Nope! Both file self-hosting and GitHub Pages hosting are 100% free.</div>
         </div>
 
-        <!-- FLIPBOOK ARROWS -->
         <div class="booklet-nav">
-          <button class="flip-btn" onclick="goToPage(3)">← Gallery</button>
+          <button class="flip-btn" onclick="goToPage(3)">← Portfolio</button>
           <button class="home-pill-small" onclick="goToPage(1)">Home</button>
           <button class="flip-btn" onclick="goToPage(1)">Start →</button>
         </div>
@@ -833,30 +883,27 @@
 
     <!-- 4 CIRCULAR SOCIAL BUTTONS OUTSIDE BOTTOM EDGE -->
     <footer class="social-row">
-      <!-- Instagram -->
       <a class="social-circle" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z"/></svg>
       </a>
-      <!-- GitHub -->
       <a class="social-circle" href="https://github.com/ysoulig" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
       </a>
-      <!-- Spotify -->
       <a class="social-circle" href="https://open.spotify.com" target="_blank" rel="noopener" aria-label="Spotify">
         <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.59 14.42c-.18.3-.56.39-.86.21-2.35-1.44-5.31-1.76-8.8-.96-.34.08-.67-.13-.75-.47-.08-.34.13-.67.47-.75 3.82-.87 7.1-.5 9.73 1.11.3.18.39.56.21.86zm1.22-2.72c-.23.37-.71.49-1.08.26-2.69-1.65-6.79-2.13-9.97-1.16-.42.13-.86-.11-.99-.53-.13-.42.11-.86.53-.99 3.63-1.1 8.15-.57 11.25 1.34.37.23.49.71.26 1.08zm.11-2.83C14.69 8.95 9.37 8.77 6.29 9.71c-.5.15-1.02-.13-1.17-.63-.15-.5.13-1.02.63-1.17 3.54-1.07 9.42-.86 13.13 1.34.45.27.59.85.33 1.3-.27.44-.85.59-1.29.32z"/></svg>
       </a>
-      <!-- Pinterest -->
       <a class="social-circle" href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.18-5.01 1.18-5.01s-.3-.6-.3-1.49c0-1.4.81-2.44 1.82-2.44.86 0 1.27.64 1.27 1.41 0 .86-.55 2.15-.83 3.34-.24 1 .5 1.81 1.48 1.81 1.78 0 3.14-1.87 3.14-4.58 0-2.39-1.72-4.07-4.18-4.07-2.85 0-4.52 2.13-4.52 4.34 0 .86.33 1.78.74 2.28.08.1.09.19.07.29-.07.31-.24.99-.28 1.13-.04.18-.15.22-.34.13-1.25-.58-2.03-2.41-2.03-3.87 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.45-2.17 6.22-5.19 6.22-1.01 0-1.97-.53-2.29-1.15l-.62 2.38c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.98.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
       </a>
     </footer>
   </div>
 
-  <!-- LIGHTBOX MODAL FOR FULL-SIZE ART VIEWING -->
+  <!-- LIGHTBOX MODAL -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <div class="lightbox-inner">
       <button class="close-lightbox" onclick="closeLightbox(event)">✕</button>
-      <img id="lightboxImg" src="" alt="Full size artwork" />
+      <img id="lightboxImg" src="" alt="Preview" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
   </div>
 
@@ -866,7 +913,6 @@
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById('page-' + pageNum).classList.add('active');
 
-      // Show top welcome banner only on Page 1
       const banner = document.getElementById('topBanner');
       const card = document.getElementById('cafeCard');
       if (pageNum === 1) {
@@ -878,50 +924,89 @@
       }
     }
 
-    // 2. Portfolio / Gallery Carousel Logic (All 6 Artworks)
-    const artworks = [
-      'Untitled28.png',
-      'Untitled29_20261115175458.png',
-      'Untitled53_20261115175443.png',
-      'Untitled56_20261115175335.png',
-      'Untitled60_20261115175426.png',
-      'Untitled87_20261115175619.png'
-    ];
+    // 2. Portfolio Categories: Websites vs Art
+    const portfolioData = {
+      websites: {
+        desc: "Custom coded HTML/CSS websites! Tap a preview to view full-size.",
+        items: [
+          { src: 'Untitled142_20261115191229.png', label: 'Matcha Cafe Theme' },
+          { src: '', label: 'Site Example #2 (Soon!)' },
+          { src: '', label: 'Site Example #3 (Soon!)' }
+        ]
+      },
+      art: {
+        desc: "Original artwork & custom graphics available as website add-ons!",
+        items: [
+          { src: 'Untitled28.png', label: 'Art #1' },
+          { src: 'Untitled29_20261115175458.png', label: 'Art #2' },
+          { src: 'Untitled53_20261115175443.png', label: 'Art #3' },
+          { src: 'Untitled56_20261115175335.png', label: 'Art #4' },
+          { src: 'Untitled60_20261115175426.png', label: 'Art #5' },
+          { src: 'Untitled87_20261115175619.png', label: 'Art #6' }
+        ]
+      }
+    };
 
+    let currentCategory = 'websites';
     let startIndex = 0;
+
+    function switchCategory(cat) {
+      currentCategory = cat;
+      startIndex = 0;
+
+      document.getElementById('tab-websites').classList.toggle('active', cat === 'websites');
+      document.getElementById('tab-art').classList.toggle('active', cat === 'art');
+      document.getElementById('portfolioDesc').textContent = portfolioData[cat].desc;
+
+      renderGallery();
+    }
 
     function renderGallery() {
       const track = document.getElementById('galleryTrack');
       const indicator = document.getElementById('galleryIndicator');
+      const items = portfolioData[currentCategory].items;
       track.innerHTML = '';
 
       for (let i = 0; i < 3; i++) {
-        const idx = (startIndex + i) % artworks.length;
+        const idx = (startIndex + i) % items.length;
+        const item = items[idx];
         const slot = document.createElement('div');
         slot.className = 'art-slot';
-        slot.onclick = () => openLightbox(artworks[idx]);
 
-        const img = document.createElement('img');
-        img.src = artworks[idx];
-        img.alt = 'Portfolio artwork ' + (idx + 1);
+        if (item.src) {
+          slot.onclick = () => openLightbox(item.src, item.label);
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = item.label;
+          slot.appendChild(img);
 
-        slot.appendChild(img);
+          const label = document.createElement('div');
+          label.className = 'slot-label';
+          label.textContent = item.label;
+          slot.appendChild(label);
+        } else {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'slot-placeholder';
+          placeholder.textContent = item.label;
+          slot.appendChild(placeholder);
+        }
+
         track.appendChild(slot);
       }
 
-      const first = startIndex + 1;
-      const last = ((startIndex + 2) % artworks.length) + 1;
-      indicator.textContent = `Viewing #${first}–#${last} of ${artworks.length} pieces`;
+      indicator.textContent = `${currentCategory.toUpperCase()} • ${items.length} items`;
     }
 
     function shiftGallery(step) {
-      startIndex = (startIndex + step + artworks.length) % artworks.length;
+      const items = portfolioData[currentCategory].items;
+      startIndex = (startIndex + step + items.length) % items.length;
       renderGallery();
     }
 
     // 3. Lightbox Popup Logic
-    function openLightbox(src) {
+    function openLightbox(src, caption) {
       document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption || '';
       document.getElementById('lightbox').classList.add('open');
     }
 
@@ -931,7 +1016,6 @@
       }
     }
 
-    // Initialize gallery on load
     renderGallery();
   </script>
 </body>
