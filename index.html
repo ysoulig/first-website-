@@ -484,7 +484,7 @@
       opacity: 0.85;
     }
 
-    /* ================= PAGE 4: PRICING / TOS / FAQ ================= */
+    /* ================= PAGE 4: PRICING / TOS / SCROLLABLE FAQ ================= */
     .split-menu {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -541,15 +541,60 @@
 
     .faq-box h3 {
       font-family: 'Fredoka', sans-serif;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .scroll-hint {
+      font-family: 'Silkscreen', monospace;
+      font-size: 0.65rem;
+      background: var(--cream);
+      border: 1.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 1px 7px;
+    }
+
+    /* Scrollable FAQ Area */
+    .faq-scroll {
+      max-height: 118px;
+      overflow-y: auto;
+      padding-right: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .faq-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .faq-scroll::-webkit-scrollbar-track {
+      background: var(--milk-light);
+      border-radius: 999px;
+      border: 1px solid rgba(123, 94, 74, 0.3);
+    }
+
+    .faq-scroll::-webkit-scrollbar-thumb {
+      background: var(--matcha);
+      border-radius: 999px;
+      border: 1px solid var(--walnut);
     }
 
     .faq-item {
-      font-size: 0.73rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 5px;
+      line-height: 1.38;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      border-bottom: 1.5px dashed rgba(123, 94, 74, 0.35);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     /* ================= BOOKLET FLIP ARROWS ================= */
@@ -811,7 +856,6 @@
           <h2>Portfolio &amp; Examples</h2>
         </div>
 
-        <!-- 2 CATEGORY TABS: WEBSITES vs ART -->
         <div class="category-tabs">
           <button class="cat-tab active" id="tab-websites" onclick="switchCategory('websites')">Websites</button>
           <button class="cat-tab" id="tab-art" onclick="switchCategory('art')">Art</button>
@@ -835,7 +879,7 @@
         </div>
       </section>
 
-      <!-- ==================== PAGE 4: PRICING / TOS / FAQ ==================== -->
+      <!-- ==================== PAGE 4: PRICING / TOS / SCROLLABLE FAQ ==================== -->
       <section class="page" id="page-4">
         <div class="page-header">
           <h2>Pricing, TOS &amp; FAQ</h2>
@@ -865,11 +909,38 @@
           </div>
         </div>
 
-        <!-- BOTTOM: WEBSITE FAQ -->
+        <!-- BOTTOM: SCROLLABLE FAQ -->
         <div class="stitched-box faq-box">
-          <h3>Website Commission FAQ</h3>
-          <div class="faq-item"><strong>Q: How do I get my finished website?</strong> A: Your choice! I can send you the <strong>.zip code files</strong> (with an easy setup guide for GitHub/Neocities) OR <strong>host it for you on GitHub</strong> with a live link.</div>
-          <div class="faq-item"><strong>Q: Are there any monthly fees?</strong> A: Nope! Both file self-hosting and GitHub Pages hosting are 100% free.</div>
+          <h3>
+            <span>Website Commission FAQ</span>
+            <span class="scroll-hint">scroll ↓</span>
+          </h3>
+          <div class="faq-scroll">
+            <div class="faq-item">
+              <strong>Q: How do I receive my finished website?</strong><br>
+              A: Your choice! I can send you the <strong>.zip code files</strong> (with a quick setup guide for GitHub/Neocities) OR <strong>host it for you on GitHub</strong> with a live link.
+            </div>
+            <div class="faq-item">
+              <strong>Q: Are there any monthly hosting fees?</strong><br>
+              A: Nope! Both self-hosting your files and GitHub Pages hosting are 100% free forever.
+            </div>
+            <div class="faq-item">
+              <strong>Q: How long does a custom site take?</strong><br>
+              A: Usually 3–7 days depending on how many pages, interactive features, and custom graphics you order.
+            </div>
+            <div class="faq-item">
+              <strong>Q: Can you match any aesthetic or color palette?</strong><br>
+              A: Yes! Whether you want pastel cafe, dark gothic, Y2K, or minimal, send me a moodboard or palette and I'll build around it.
+            </div>
+            <div class="faq-item">
+              <strong>Q: What if I want to update my bio or links later?</strong><br>
+              A: If you take the files, you can edit the text anytime! If I host it for you, just message me for small text swaps.
+            </div>
+            <div class="faq-item">
+              <strong>Q: How do I order?</strong><br>
+              A: DM me through any of my social links below with your layout idea, aesthetic, and any reference images!
+            </div>
+          </div>
         </div>
 
         <div class="booklet-nav">
@@ -930,7 +1001,7 @@
         desc: "Custom coded HTML/CSS websites! Tap a preview to view full-size.",
         items: [
           { src: 'Untitled142_20261115191229.png', label: 'Matcha Cafe Theme' },
-          { src: '', label: 'Site Example #2 (Soon!)' },
+          { src: '', label: 'Dark Aesthetic Site (Soon!)' },
           { src: '', label: 'Site Example #3 (Soon!)' }
         ]
       },
