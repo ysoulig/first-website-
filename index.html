@@ -1,356 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>cafe profile</title>
-  <!-- Cute Pixel & Rounded Fonts from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to My Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@500;700;800&family=Silkscreen&display=swap" rel="stylesheet">
   <style>
-    /* --- PASTEL CAFE THEME & PALETTE --- */
     :root {
       --matcha: #ABBF9B;
+      --matcha-dark: #8FA67E;
       --milk: #E6E2D7;
+      --milk-light: #F3F0E8;
       --cream: #E4CDB0;
-      --caramel: #A2663C;
-      --coffee: #3F1D0E;
+      --cream-dark: #D5B895;
       --walnut: #7B5E4A;
-      --ivory: #FAF7F0;
+      --walnut-soft: #967761;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 20px;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Quicksand', sans-serif;
-      /* Soft pastel checkered/grid background */
-      background-color: var(--milk);
-      background-image: 
-        linear-gradient(45deg, var(--cream) 25%, transparent 25%), 
-        linear-gradient(-45deg, var(--cream) 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, var(--cream) 75%), 
-        linear-gradient(-45deg, transparent 75%, var(--cream) 75%);
-      background-size: 40px 40px;
-      background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-    }
-
-    /* --- WIDE HORIZONTAL "SQUIRCLE" WINDOW --- */
-    .cafe-container {
-      width: 100%;
-      max-width: 820px;
-      background: var(--ivory);
-      border: 4px solid var(--walnut);
-      border-radius: 24px;
-      box-shadow: 6px 6px 0px var(--caramel);
-      overflow: hidden;
-    }
-
-    /* Top Cute Awning Header */
-    .cafe-header {
-      background: var(--matcha);
-      border-bottom: 3px dashed var(--walnut);
-      padding: 16px 20px;
-      text-align: center;
-      color: var(--coffee);
-    }
-
-    .cafe-header h1 {
-      margin: 0;
-      font-family: 'Pixelify Sans', sans-serif;
-      font-size: 28px;
-      letter-spacing: 1px;
-    }
-
-    .cafe-header p {
-      margin: 4px 0 0 0;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    /* --- SEPARATED PILL TABS BAR --- */
-    .tabs-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 20px;
-      background: var(--milk);
-      border-bottom: 3px solid var(--walnut);
-    }
-
-    .tab-pill {
-      background: var(--ivory);
-      border: 2px dashed var(--walnut);
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
+      background-color: var(--matcha);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.35) 2px, transparent 2px);
+      background-size: 20px 20px;
+      font-family: 'Nunito', sans-serif;
       color: var(--walnut);
-      cursor: pointer;
-      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 14px;
     }
 
-    .tab-pill:hover {
+    /* Main Card Wrapper */
+    .card-wrapper {
+      width: 100%;
+      max-width: 460px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Banner overlapping top of card */
+    .top-banner {
+      width: 96%;
+      max-width: 440px;
+      margin-bottom: -18px;
+      z-index: 5;
+      filter: drop-shadow(0 4px 0 rgba(123, 94, 74, 0.25));
+      transition: transform 0.2s ease;
+    }
+
+    .top-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+
+    /* Squircle Cafe Booklet Card */
+    .cafe-card {
+      width: 100%;
+      background-color: var(--milk-light);
+      /* Subtle pastel gingham pattern */
+      background-image:
+        linear-gradient(90deg, rgba(228, 205, 176, 0.28) 50%, transparent 50%),
+        linear-gradient(rgba(228, 205, 176, 0.28) 50%, transparent 50%);
+      background-size: 28px 28px;
+      border: 4px solid var(--walnut);
+      border-radius: 32px;
+      box-shadow: 0 8px 0 var(--walnut);
+      padding: 26px 18px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cafe-card.no-banner {
+      padding-top: 20px;
+    }
+
+    /* Page Switching */
+    .page {
+      display: none;
+      animation: popIn 0.22s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(4px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Reusable Stitched Box Style */
+    .stitched-box {
+      background: var(--milk);
+      border: 2.5px solid var(--walnut);
+      border-radius: 20px;
+      padding: 10px 12px;
+      position: relative;
+      box-shadow: 0 3px 0 rgba(123, 94, 74, 0.2);
+    }
+
+    .stitched-box::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border: 1.5px dashed var(--walnut-soft);
+      border-radius: 15px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .photo-frame {
+      background: var(--cream);
+      border: 2.5px solid var(--walnut);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 3px 0 rgba(123, 94, 74, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================= PAGE 1: HOME ================= */
+    .home-top-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .home-pfp {
+      width: 112px;
+      height: 112px;
+    }
+
+    .info-box h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-box p {
+      font-size: 0.82rem;
+      line-height: 1.38;
+      font-weight: 700;
+    }
+
+    /* Music Bar */
+    .music-bar {
+      background: var(--cream);
+      border: 2.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      box-shadow: 0 2px 0 rgba(123, 94, 74, 0.2);
+    }
+
+    .music-note {
+      font-family: 'Silkscreen', monospace;
+      background: var(--matcha);
+      color: var(--walnut);
+      border: 1.5px solid var(--walnut);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+
+    .music-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Home Bottom Grid */
+    .home-bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 145px;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .status-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .status-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .status-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px dashed rgba(123, 94, 74, 0.35);
+      padding-bottom: 3px;
+    }
+
+    .status-badge {
+      background: var(--matcha);
+      border: 1.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 1px 8px;
+      font-size: 0.72rem;
+    }
+
+    .status-badge.closed {
+      background: var(--cream);
+    }
+
+    /* Nav Pill Buttons */
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.82rem;
+      background: var(--matcha);
+      color: var(--walnut);
+      border: 2.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 6px 12px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--walnut);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+      position: relative;
+      flex: 1 1 auto;
+      text-align: center;
+    }
+
+    .pill-btn:hover {
+      background: var(--cream);
+      transform: translateY(-1px);
+    }
+
+    .pill-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--walnut);
+    }
+
+    .home-tall-photo {
+      height: 100%;
+      min-height: 175px;
+    }
+
+    /* ================= PAGE 2: LIKES / DISLIKES ================= */
+    .page-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .page-header h2 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+      background: var(--cream);
+      display: inline-block;
+      padding: 3px 16px;
+      border: 2.5px solid var(--walnut);
+      border-radius: 999px;
+      box-shadow: 0 2px 0 var(--walnut);
+    }
+
+    .ld-row {
+      display: grid;
+      grid-template-columns: 95px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ld-photo {
+      width: 95px;
+      height: 95px;
+    }
+
+    .bubble-box {
+      background: var(--milk);
+      border: 2.5px solid var(--walnut);
+      border-radius: 24px;
+      padding: 10px 14px;
+      position: relative;
+      box-shadow: 0 3px 0 rgba(123, 94, 74, 0.2);
+    }
+
+    .bubble-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge-mark {
+      font-family: 'Silkscreen', monospace;
+      font-size: 0.85rem;
+      background: var(--matcha);
+      border: 2px solid var(--walnut);
+      border-radius: 8px;
+      padding: 1px 6px;
+    }
+
+    .badge-mark.x-mark {
+      background: var(--cream);
+    }
+
+    .bubble-box p {
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* ================= PAGE 3: PORTFOLIO / GALLERY ================= */
+    .brief-desc {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: var(--milk);
+      border: 2px dashed var(--walnut);
+      border-radius: 14px;
+      padding: 6px 10px;
+    }
+
+    .carousel-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .carousel-arrow {
+      font-family: 'Silkscreen', monospace;
+      font-size: 1rem;
+      background: var(--cream);
+      color: var(--walnut);
+      border: 2.5px solid var(--walnut);
+      border-radius: 14px;
+      width: 34px;
+      height: 64px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--walnut);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease, background 0.15s ease;
+    }
+
+    .carousel-arrow:hover {
+      background: var(--matcha);
+    }
+
+    .carousel-arrow:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--walnut);
+    }
+
+    .carousel-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+
+    .art-slot {
+      aspect-ratio: 3 / 4;
+      background: var(--cream);
+      border: 2.5px solid var(--walnut);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 3px 0 rgba(123, 94, 74, 0.25);
+      transition: transform 0.15s ease;
+    }
+
+    .art-slot:hover {
+      transform: translateY(-2px);
+    }
+
+    .art-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-dots {
+      text-align: center;
+      font-family: 'Silkscreen', monospace;
+      font-size: 0.72rem;
+      opacity: 0.85;
+    }
+
+    /* ================= PAGE 4: PRICING / TOS / FAQ ================= */
+    .split-menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .menu-col h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.92rem;
+      border-bottom: 2px dashed var(--walnut);
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .tos-list {
+      padding-left: 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.38;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .price-list {
+      list-style: none;
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .price-list li {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1.5px dotted rgba(123, 94, 74, 0.45);
+      padding-bottom: 2px;
+    }
+
+    .price-tag {
+      font-family: 'Silkscreen', monospace;
+      font-size: 0.74rem;
+      background: var(--matcha);
+      padding: 0 5px;
+      border-radius: 6px;
+      border: 1px solid var(--walnut);
+    }
+
+    .faq-box h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .faq-item {
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    /* ================= BOOKLET FLIP ARROWS ================= */
+    .booklet-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 2px dashed rgba(123, 94, 74, 0.4);
+    }
+
+    .flip-btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      background: var(--cream);
+      color: var(--walnut);
+      border: 2.5px solid var(--walnut);
+      border-radius: 999px;
+      padding: 5px 14px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--walnut);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s ease, background 0.15s ease;
+    }
+
+    .flip-btn:hover {
+      background: var(--matcha);
+    }
+
+    .flip-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--walnut);
+    }
+
+    .home-pill-small {
+      font-family: 'Silkscreen', monospace;
+      font-size: 0.7rem;
+      background: var(--milk);
+      color: var(--walnut);
+      border: 2px solid var(--walnut);
+      border-radius: 999px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    /* ================= OUTSIDE BOTTOM SOCIAL CIRCLES ================= */
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 16px;
+      z-index: 3;
+    }
+
+    .social-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--milk-light);
+      border: 3px solid var(--walnut);
+      box-shadow: 0 4px 0 var(--walnut);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--walnut);
+      text-decoration: none;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .social-circle:hover {
       background: var(--cream);
       transform: translateY(-2px);
     }
 
-    .tab-pill.active {
-      background: var(--matcha);
-      border-style: solid;
-      color: var(--coffee);
-      box-shadow: 0 3px 0px var(--walnut);
+    .social-circle svg {
+      width: 19px;
+      height: 19px;
+      fill: currentColor;
     }
 
-    /* --- CONTENT AREA --- */
-    .content-body {
-      padding: 24px;
-      background: var(--ivory);
-    }
-
-    .page-section {
+    /* Fullscreen Lightbox for Gallery Art */
+    .lightbox {
       display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(65, 49, 38, 0.8);
+      z-index: 99;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .page-section.active {
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      background: var(--milk-light);
+      border: 4px solid var(--walnut);
+      border-radius: 24px;
+      padding: 10px;
+      max-width: 90vw;
+      max-height: 85vh;
+      position: relative;
+      box-shadow: 0 8px 0 var(--walnut);
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 16px;
       display: block;
     }
 
-    /* Grid Layout for Home */
-    .home-grid {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 20px;
-    }
-
-    /* Panel Boxes */
-    .cafe-panel {
-      background: #ffffff;
-      border: 3px solid var(--walnut);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 3px 3px 0px var(--cream);
-    }
-
-    .panel-title {
-      font-family: 'Pixelify Sans', sans-serif;
-      font-size: 18px;
-      color: var(--coffee);
-      background: var(--matcha);
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 2px solid var(--walnut);
-      margin: -16px -16px 14px -16px;
-      text-align: center;
-    }
-
-    /* Status Pills */
-    .status-box {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 14px;
-      font-size: 13px;
-      font-weight: bold;
-      color: var(--coffee);
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      background: var(--milk);
-      padding: 6px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--walnut);
-    }
-
-    .status-open { color: #2e7d32; }
-    .status-closed { color: #c62828; }
-
-    /* Image Grid (3-4 cafe slots) */
-    .image-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .cafe-img-slot {
-      aspect-ratio: 1 / 1;
-      background: var(--milk);
-      border: 2px dashed var(--walnut);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      text-align: center;
-      color: var(--walnut);
-      padding: 4px;
-    }
-
-    /* Social Links Row */
-    .social-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .social-btn {
+    .close-lightbox {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
       background: var(--cream);
-      border: 2px solid var(--walnut);
-      padding: 8px 14px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--coffee);
-      font-weight: bold;
-      font-size: 12px;
-      transition: 0.1s;
+      border: 3px solid var(--walnut);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      color: var(--walnut);
+      cursor: pointer;
+      box-shadow: 0 3px 0 var(--walnut);
     }
 
-    .social-btn:hover {
-      background: var(--matcha);
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    .cafe-footer {
-      background: var(--matcha);
-      border-top: 3px dashed var(--walnut);
-      padding: 10px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--coffee);
+    @media (max-width: 420px) {
+      .home-top-row {
+        grid-template-columns: 92px 1fr;
+      }
+      .home-pfp {
+        width: 92px;
+        height: 92px;
+      }
+      .home-bottom-row {
+        grid-template-columns: 1fr 120px;
+      }
+      .split-menu {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="cafe-container">
-    
-    <!-- Top Awning Header -->
-    <div class="cafe-header">
-      <h1>☕ welcome to my cafe!</h1>
-      <p>soft web designs, art & code ♪(^∇^*)</p>
+  <div class="card-wrapper">
+    <!-- TOP BANNER (Visible on Home Page) -->
+    <div class="top-banner" id="topBanner">
+      <!-- BANNER IMAGE -->
+      <img src="Untitled142_20261115191229.png" alt="Welcome to my cafe banner" />
     </div>
 
-    <!-- Separated Pill Navigation Bar -->
-    <div class="tabs-row">
-      <button class="tab-pill active" onclick="switchTab('home', this)">home + about</button>
-      <button class="tab-pill" onclick="switchTab('likes', this)">likes, dislikes & dni</button>
-      <button class="tab-pill" onclick="switchTab('gallery', this)">gallery</button>
-      <button class="tab-pill" onclick="switchTab('pricing', this)">pricing + tos</button>
-    </div>
+    <!-- MAIN CAFE CARD -->
+    <main class="cafe-card" id="cafeCard">
 
-    <!-- Main Content Body -->
-    <div class="content-body">
-
-      <!-- TAB 1: HOME + ABOUT -->
-      <div id="home" class="page-section active">
-        <div class="home-grid">
-          
-          <!-- Left Column: Status & Quick Info -->
-          <div>
-            <div class="cafe-panel">
-              <div class="panel-title">status</div>
-              <div class="status-box">
-                <div class="status-row"><span>comms:</span> <span class="status-open">OPEN</span></div>
-                <div class="status-row"><span>trades:</span> <span class="status-closed">CLOSED</span></div>
-                <div class="status-row"><span>requests:</span> <span class="status-open">OPEN</span></div>
-              </div>
-              <p style="font-size: 12px; text-align: center; color: var(--walnut); margin: 0;">
-                DM on Instagram or Discord for inquiries!
-              </p>
-            </div>
+      <!-- ==================== PAGE 1: HOME ==================== -->
+      <section class="page active" id="page-1">
+        <div class="home-top-row">
+          <!-- HOME PROFILE ICON (extra image 1) -->
+          <div class="photo-frame home-pfp">
+            <img src="0e486133d13fe9c7cfacf444e4cfcec5.jpg" alt="Profile sticker" />
           </div>
 
-          <!-- Right Column: Bio & Image Grid -->
-          <div class="cafe-panel">
-            <div class="panel-title">about me ♪</div>
-            <p style="margin-top: 0; font-size: 14px; line-height: 1.5;">
-              Hi! I'm AJ. I like digital character design, coding small websites, learning game development, and cozy aesthetics. Take a look around!
+          <!-- INFO BOX -->
+          <div class="stitched-box info-box">
+            <h2><span>🍵</span> Welcome in!</h2>
+            <p>
+              Hey, I'm AJ! | Digital artist | character designer &amp; coder | studying law &amp; additional focusing on programming!
             </p>
-            
-            <div class="panel-title" style="margin-top: 16px;">cafe gallery slots</div>
-            <div class="image-grid">
-              <div class="cafe-img-slot">[image 1]</div>
-              <div class="cafe-img-slot">[image 2]</div>
-              <div class="cafe-img-slot">[image 3]</div>
-              <div class="cafe-img-slot">[image 4]</div>
+          </div>
+        </div>
+
+        <!-- LISTENING TO MUSIC BAR -->
+        <div class="music-bar">
+          <span class="music-note">♪</span>
+          <span class="music-text">Listening to: <strong>TOOL — Forty Six &amp; 2</strong></span>
+        </div>
+
+        <!-- BOTTOM ROW: STATUS + BUTTONS ON LEFT, TALL PHOTO ON RIGHT -->
+        <div class="home-bottom-row">
+          <div class="status-col">
+            <div class="stitched-box">
+              <ul class="status-list">
+                <li><span>Commissions</span> <span class="status-badge">OPEN</span></li>
+                <li><span>Requests</span> <span class="status-badge closed">CLOSED</span></li>
+                <li><span>Art Trades</span> <span class="status-badge">ASK</span></li>
+              </ul>
+            </div>
+
+            <div class="nav-pills">
+              <button class="pill-btn" onclick="goToPage(3)">Gallery</button>
+              <button class="pill-btn" onclick="goToPage(2)">More!</button>
+              <button class="pill-btn" onclick="goToPage(4)">Pricing / TOS</button>
             </div>
           </div>
 
+          <!-- HOME TALL PHOTO (extra image 2) -->
+          <div class="photo-frame home-tall-photo">
+            <img src="54d776d791b4782184a612779765584a.jpg" alt="Featured character art" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PAGE 2: LIKES & DISLIKES ==================== -->
+      <section class="page" id="page-2">
+        <div class="page-header">
+          <h2>Cafe Menu: Likes &amp; DNI</h2>
         </div>
 
-        <!-- Social Buttons Bar -->
-        <div class="social-row">
-          <a href="#" class="social-btn">instagram ↗</a>
-          <a href="#" class="social-btn">github ↗</a>
-          <a href="#" class="social-btn">spotify ↗</a>
-          <a href="#" class="social-btn">pinterest ↗</a>
+        <!-- LIKES ROW -->
+        <div class="ld-row">
+          <!-- LIKES ICON (extra image 3) -->
+          <div class="photo-frame ld-photo">
+            <img src="dd52ac67c092b97e6b6921f52d83e676.jpg" alt="Likes icon" />
+          </div>
+          <div class="bubble-box">
+            <div class="bubble-title">
+              <span>Likes</span>
+              <span class="badge-mark">✓</span>
+            </div>
+            <p>
+              Photography, architecture + character designs, subcultures, Visual Kei &amp; Music, Resident Evil , outlast, occasional baking.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- TAB 2: LIKES, DISLIKES & DNI -->
-      <div id="likes" class="page-section">
-        <div class="cafe-panel">
-          <div class="panel-title">likes & dislikes ★</div>
-          <p><strong>likes:</strong> matcha lattes, coding, character design, retro aesthetics.</p>
-          <p><strong>dislikes:</strong> paywalls, bugs that take 3 hours to fix.</p>
-          <hr style="border: 1px dashed var(--walnut); margin: 16px 0;">
-          <div class="panel-title" style="background: var(--cream);">D.N.I (do not interact)</div>
-          <p style="font-size: 13px; margin-bottom: 0;">Basic DNI criteria (homophobic, racist, ableist, or generally disrespectful people).</p>
+        <!-- DISLIKES / DNI ROW -->
+        <div class="ld-row">
+          <!-- DISLIKES ICON (extra image 4) -->
+          <div class="photo-frame ld-photo">
+            <img src="e1b9859107973a08d524f816fc076db3.jpg" alt="Dislikes icon" />
+          </div>
+          <div class="bubble-box">
+            <div class="bubble-title">
+              <span>Dislikes / DNI</span>
+              <span class="badge-mark x-mark">✕</span>
+            </div>
+            <p>
+              Art theft, tracing, AI scraping, rude customers, clutter, and basic DNI criteria. Please be respectful when ordering!
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- TAB 3: GALLERY -->
-      <div id="gallery" class="page-section">
-        <div class="cafe-panel">
-          <div class="panel-title">art & website gallery</div>
-          <p style="text-align: center; color: var(--walnut);">Put your art pieces, character reference sheets, or website examples here!</p>
+        <!-- FLIPBOOK ARROWS -->
+        <div class="booklet-nav">
+          <button class="flip-btn" onclick="goToPage(1)">← Home</button>
+          <button class="home-pill-small" onclick="goToPage(1)">Page 2 / 4</button>
+          <button class="flip-btn" onclick="goToPage(3)">Gallery →</button>
         </div>
-      </div>
+      </section>
 
-      <!-- TAB 4: PRICING + TOS -->
-      <div id="pricing" class="page-section">
-        <div class="cafe-panel">
-          <div class="panel-title">pricing, tos & faq</div>
-          <p><strong>website commissions:</strong> info coming soon...</p>
-          <p><strong>terms of service (TOS):</strong> basic rules for commissioning custom layouts.</p>
-          <p><strong>FAQ:</strong> answers to common questions go here!</p>
+      <!-- ==================== PAGE 3: PORTFOLIO / GALLERY ==================== -->
+      <section class="page" id="page-3">
+        <div class="page-header">
+          <h2>Portfolio &amp; Sketchbook</h2>
         </div>
-      </div>
 
-    </div>
+        <div class="brief-desc">
+          Click the arrows to flip through my artwork, or tap any piece to view it full-size!
+        </div>
 
-    <!-- Footer -->
-    <div class="cafe-footer">
-      website designed & created by AJ ★ brewed with html & css
-    </div>
+        <!-- CAROUSEL WITH WORKING ARROWS -->
+        <div class="carousel-wrapper">
+          <button class="carousel-arrow" onclick="shiftGallery(-1)" aria-label="Previous art">←</button>
+          <div class="carousel-track" id="galleryTrack">
+            <!-- Populated automatically by JavaScript -->
+          </div>
+          <button class="carousel-arrow" onclick="shiftGallery(1)" aria-label="Next art">→</button>
+        </div>
+        <div class="carousel-dots" id="galleryIndicator">Showing 1–3 of 6</div>
 
+        <!-- FLIPBOOK ARROWS -->
+        <div class="booklet-nav">
+          <button class="flip-btn" onclick="goToPage(2)">← More!</button>
+          <button class="home-pill-small" onclick="goToPage(1)">Home</button>
+          <button class="flip-btn" onclick="goToPage(4)">Pricing →</button>
+        </div>
+      </section>
+
+      <!-- ==================== PAGE 4: PRICING / TOS / FAQ ==================== -->
+      <section class="page" id="page-4">
+        <div class="page-header">
+          <h2>Pricing, TOS &amp; FAQ</h2>
+        </div>
+
+        <div class="split-menu">
+          <!-- LEFT: TOS -->
+          <div class="stitched-box menu-col">
+            <h3>Terms of Service</h3>
+            <ul class="tos-list">
+              <li>50% upfront after sketch approval.</li>
+              <li>Personal use only unless discussed.</li>
+              <li>Clear visual references required.</li>
+              <li>No refunds once coloring begins.</li>
+            </ul>
+          </div>
+
+          <!-- RIGHT: PRICING -->
+          <div class="stitched-box menu-col">
+            <h3>Cafe Menu Prices</h3>
+            <ul class="price-list">
+              <li><span>Aahhhhh</span> <span class="price-tag">$tbd</span></li>
+              <li><span>Buhhhh</span> <span class="price-tag">$tbd</span></li>
+              <li><span>Ahhhh</span> <span class="price-tag">$tbd</span></li>
+              <li><span>Meow</span> <span class="price-tag">$tbd</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BOTTOM: FAQ -->
+        <div class="stitched-box faq-box">
+          <h3>Quick FAQ</h3>
+          <div class="faq-item"><strong>Q: How long do commissions take?</strong> A: Usually about a week days depending on queue &amp; detail!</div>
+          <div class="faq-item"><strong>Q: Where do I order?</strong> A: DM me on Instagram or message me via my socials below.</div>
+        </div>
+
+        <!-- FLIPBOOK ARROWS -->
+        <div class="booklet-nav">
+          <button class="flip-btn" onclick="goToPage(3)">← Gallery</button>
+          <button class="home-pill-small" onclick="goToPage(1)">Home</button>
+          <button class="flip-btn" onclick="goToPage(1)">Start →</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 4 CIRCULAR SOCIAL BUTTONS OUTSIDE BOTTOM EDGE -->
+    <footer class="social-row">
+      <!-- Instagram -->
+      <a class="social-circle" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z"/></svg>
+      </a>
+      <!-- GitHub -->
+      <a class="social-circle" href="https://github.com/ysoulig" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+      </a>
+      <!-- Spotify -->
+      <a class="social-circle" href="https://open.spotify.com" target="_blank" rel="noopener" aria-label="Spotify">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.59 14.42c-.18.3-.56.39-.86.21-2.35-1.44-5.31-1.76-8.8-.96-.34.08-.67-.13-.75-.47-.08-.34.13-.67.47-.75 3.82-.87 7.1-.5 9.73 1.11.3.18.39.56.21.86zm1.22-2.72c-.23.37-.71.49-1.08.26-2.69-1.65-6.79-2.13-9.97-1.16-.42.13-.86-.11-.99-.53-.13-.42.11-.86.53-.99 3.63-1.1 8.15-.57 11.25 1.34.37.23.49.71.26 1.08zm.11-2.83C14.69 8.95 9.37 8.77 6.29 9.71c-.5.15-1.02-.13-1.17-.63-.15-.5.13-1.02.63-1.17 3.54-1.07 9.42-.86 13.13 1.34.45.27.59.85.33 1.3-.27.44-.85.59-1.29.32z"/></svg>
+      </a>
+      <!-- Pinterest -->
+      <a class="social-circle" href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.18-5.01 1.18-5.01s-.3-.6-.3-1.49c0-1.4.81-2.44 1.82-2.44.86 0 1.27.64 1.27 1.41 0 .86-.55 2.15-.83 3.34-.24 1 .5 1.81 1.48 1.81 1.78 0 3.14-1.87 3.14-4.58 0-2.39-1.72-4.07-4.18-4.07-2.85 0-4.52 2.13-4.52 4.34 0 .86.33 1.78.74 2.28.08.1.09.19.07.29-.07.31-.24.99-.28 1.13-.04.18-.15.22-.34.13-1.25-.58-2.03-2.41-2.03-3.87 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.16 2.47 6.16 5.77 0 3.45-2.17 6.22-5.19 6.22-1.01 0-1.97-.53-2.29-1.15l-.62 2.38c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.98.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+      </a>
+    </footer>
   </div>
 
-  <!-- JavaScript for Tab Switching -->
+  <!-- LIGHTBOX MODAL FOR FULL-SIZE ART VIEWING -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-inner">
+      <button class="close-lightbox" onclick="closeLightbox(event)">✕</button>
+      <img id="lightboxImg" src="" alt="Full size artwork" />
+    </div>
+  </div>
+
   <script>
-    function switchTab(tabId, clickedPill) {
-      // Hide all sections
-      let sections = document.querySelectorAll('.page-section');
-      sections.forEach(sec => sec.classList.remove('active'));
+    // 1. Page Navigation Logic
+    function goToPage(pageNum) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + pageNum).classList.add('active');
 
-      // Remove active class from all pills
-      let pills = document.querySelectorAll('.tab-pill');
-      pills.forEach(pill => pill.classList.remove('active'));
-
-      // Show chosen section & highlight clicked pill
-      document.getElementById(tabId).classList.add('active');
-      clickedPill.classList.add('active');
+      // Show top welcome banner only on Page 1
+      const banner = document.getElementById('topBanner');
+      const card = document.getElementById('cafeCard');
+      if (pageNum === 1) {
+        banner.style.display = 'block';
+        card.classList.remove('no-banner');
+      } else {
+        banner.style.display = 'none';
+        card.classList.add('no-banner');
+      }
     }
-  </script>
 
+    // 2. Portfolio / Gallery Carousel Logic (All 6 Artworks)
+    const artworks = [
+      'Untitled28.png',
+      'Untitled29_20261115175458.png',
+      'Untitled53_20261115175443.png',
+      'Untitled56_20261115175335.png',
+      'Untitled60_20261115175426.png',
+      'Untitled87_20261115175619.png'
+    ];
+
+    let startIndex = 0;
+
+    function renderGallery() {
+      const track = document.getElementById('galleryTrack');
+      const indicator = document.getElementById('galleryIndicator');
+      track.innerHTML = '';
+
+      for (let i = 0; i < 3; i++) {
+        const idx = (startIndex + i) % artworks.length;
+        const slot = document.createElement('div');
+        slot.className = 'art-slot';
+        slot.onclick = () => openLightbox(artworks[idx]);
+
+        const img = document.createElement('img');
+        img.src = artworks[idx];
+        img.alt = 'Portfolio artwork ' + (idx + 1);
+
+        slot.appendChild(img);
+        track.appendChild(slot);
+      }
+
+      const first = startIndex + 1;
+      const last = ((startIndex + 2) % artworks.length) + 1;
+      indicator.textContent = `Viewing #${first}–#${last} of ${artworks.length} pieces`;
+    }
+
+    function shiftGallery(step) {
+      startIndex = (startIndex + step + artworks.length) % artworks.length;
+      renderGallery();
+    }
+
+    // 3. Lightbox Popup Logic
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox(e) {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('close-lightbox')) {
+        document.getElementById('lightbox').classList.remove('open');
+      }
+    }
+
+    // Initialize gallery on load
+    renderGallery();
+  </script>
 </body>
 </html>
